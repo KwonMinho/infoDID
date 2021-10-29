@@ -1,5 +1,10 @@
-## user-info-managers
+# infoDID
 
+### run ldap on docker
+
+```
+docker run -p 3999:389 -p 6377:636 --restart=always --env LDAP_DOMAIN="infoDID.com" --env LDAP_TLS=false --env LDAP_ADMIN_PASSWORD=pslab --name infoDID-ldap --detach alsgh458/openldap:0.3.2
+```
 
 ### POST, '/user/info'
 

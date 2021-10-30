@@ -9,13 +9,15 @@ router.post('/register',
     checkAuth, 
     userControllers.registerUser);
 
-// router.post('/update', 
+router.get('/pass-on', 
+    checkAuth, 
+    userControllers.getUser);
+
+
+    // router.post('/update', 
 //     formCheck.updateForm, 
 //     checkAuth, 
 //     userControllers.updateUser)
 
-// router.get('/pass-on', 
-//     checkAuth, 
-//     userControllers.provideInfo);
 
 module.exports = router

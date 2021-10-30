@@ -9,7 +9,6 @@ const registerUser = (req, res) =>{
         req.body.auth.did.toLowerCase(),
         req.body.info
     );
-
     addEvent.on('new', async(err)=>{
         if (err != null) {
             res.status(409).json({
@@ -26,7 +25,7 @@ const registerUser = (req, res) =>{
         const adminSign = await didClient.sign(
             JSON.stringify(certStamp), 
             'EcdsaSecp256k1RecoveryMethod2020', 
-            didCfg.PRIVATE_KEY).signature; //@fix-add
+            didCfg.PRIVATE_KEY).signature;
         res.status(202).json({
             certStamp: certStamp,
             signature: adminSign
@@ -34,46 +33,36 @@ const registerUser = (req, res) =>{
     })
 }
 
-const updateUser = (req, res) => {
 
-}
-
-const externalTXN = (req,res)=>{
+const notifyBlockchain = (req,res)=>{
     // console.log('store external_txn');
     // console.log(req.query)
 }
 
-const provideInfo = (req, res) =>{
-//     // 1. did auth, attrs
-//     const auth = req.body.auth;
-//     const attrs = req.body.attrs;
-//     console.log(auth)
-//     console.log(attrs)
-//     //2. did auth (user)
-//     if(auth.did == null || auth.pubKeyID == null || auth.signature == null)
-//         res.send('Rejected: auth object is invalid');
+/**
+ * body {
+ *  auth,
+ *  attrs
+ * }
+*/
+const getUser = (req, res) =>{
+    const readEvent = ldapClient.readUserInfo(
+        req.query.did.toLowerCase(), 
+        req.query.attrs
+    );
 
-//     const authResults = await didClient.didAuth(
-//         auth.did.toLowerCase(),
-//         auth.pubKeyID,
-//         auth.signature,
-//         JSON.stringify(attrs)
-//     )
-//     if(authResults[0] != true)
-//         res.send('Invalid did auth..');
-
-
-//     const event = ldapClient.readUserInfo(auth.did.toLowerCase(), attrs);
-//     event.on('readUserInfo', (userInfo)=>{
-//         const user = userInfo[0];
-//         res.send(user)
-//     });
+    readEvent.on('read', (userInfo)=>{
+        const user = userInfo[0];
+        if(user == undefined){
+            res.send("can't search...!");
+            return;
+        }
+        res.send(user)
+    });
 }
 
 
 module.exports = {
     registerUser,
-    updateUser,
-    externalTXN,
-    provideInfo
+    getUser
 }

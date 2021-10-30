@@ -1,0 +1,65 @@
+objectidentifier didSchema 1.3.6.1.4.1.X.Y
+objectidentifier didAttrs didSchema:3
+objectidentifier didObj didSchema:4
+
+attributetype ( didAttrs:1
+              NAME 'did'
+          DESC 'user did'
+          EQUALITY caseIgnoreMatch
+          SUBSTR caseIgnoreSubstringsMatch
+          SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 )
+attributetype ( didAttrs:2
+              NAME 'didGender'
+          DESC 'gender'
+          EQUALITY caseIgnoreMatch
+          SUBSTR caseIgnoreSubstringsMatch
+          SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 )
+attributetype ( didAttrs:3
+              NAME 'didBirth'
+          DESC 'brith'
+          EQUALITY caseIgnoreMatch
+          SUBSTR caseIgnoreSubstringsMatch
+          SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 )
+attributetype ( didAttrs:4
+              NAME 'didCountry'
+          DESC 'country'
+          EQUALITY caseIgnoreMatch
+          SUBSTR caseIgnoreSubstringsMatch
+          SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 )
+attributetype ( didAttrs:5
+              NAME 'didPhoneNumber'
+          DESC 'phonenumber'
+          EQUALITY caseIgnoreMatch
+          SUBSTR caseIgnoreSubstringsMatch
+          SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 )
+attributetype ( didAttrs:6
+              NAME 'didEmail'
+          DESC 'email'
+          EQUALITY caseIgnoreMatch
+          SUBSTR caseIgnoreSubstringsMatch
+          SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 )
+attributetype ( didAttrs:7
+              NAME 'didJob'
+          DESC 'job'
+          EQUALITY caseIgnoreMatch
+          SUBSTR caseIgnoreSubstringsMatch
+          SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 )
+attributetype ( didAttrs:8
+              NAME 'didAddress'
+          DESC 'address'
+          EQUALITY caseIgnoreMatch
+          SUBSTR caseIgnoreSubstringsMatch
+          SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 )
+attributetype ( didAttrs:9
+             NAME 'desc' 
+          DESC 'object description'
+          EQUALITY caseIgnoreMatch
+          SUBSTR caseIgnoreSubstringsMatch
+          SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 )   
+          
+objectClass ( didObj:1
+            NAME 'didObject'
+        DESC 'Describe a did Object'
+        SUP ( top ) AUXILIARY 
+        MUST ( did )
+        MAY (desc $ didGender $ didBirth $ didCountry $ didPhoneNumber $ didEmail $ didJob $ didAddress ) )

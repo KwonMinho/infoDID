@@ -22,17 +22,9 @@ function checkForm(i){
 
 
 
-const updateForm = (req,res)=>{
-    const t = req.body.type
+const updateForm = (req,res,next)=>{
     const i = req.body.info
     let errMsg = '';
-
-    if(t!='update'){
-        res.status(400).json({
-          error: `Not valid type: ${t}` 
-        })
-        return
-    }
     
     if(i.add == null && i.replace == null && i.delete == null)
         errMsg += "Set one of the 'add', 'replace', or 'delete' attributes on info object. \n";
@@ -50,20 +42,14 @@ const updateForm = (req,res)=>{
         res.status(400).json({
             error: errMsg
         });
-    }
-}
-
-const addForm = (req,res)=>{
-    const t = req.body.type
-    const i = req.body.info
-    let errMsg = '';
-
-    if(t!='new'){
-        res.status(400).json({
-          error: `Not valid type: ${t}` 
-        })
         return
     }
+    next()
+}
+
+const addForm = (req,res,next)=>{
+    const i = req.body.info
+    let errMsg = '';
 
     if(i.cn == null || i.cn == undefined) errMsg += "Must be 'cn' attribute in InfoObject! \n";
     if(i.sn == null || i.sn == undefined) errMsg += "Must be 'sn' attribute in InfoObject! \n";
@@ -76,7 +62,9 @@ const addForm = (req,res)=>{
         res.status(400).json({
             error: errMsg
         });
+        return
     }
+    next()
  }
 
 
